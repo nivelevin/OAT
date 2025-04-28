@@ -97,7 +97,6 @@ for i in range(len(raw_values)):
         "Velocity": vel,
         "Initial Average": avg,
         "Regular Average": weighted_avg,
-        
         "Time Stamp" : averager.timestamps[i] if i < len(averager.timestamps) else '-'
     })
 df = pd.DataFrame(data)
@@ -170,5 +169,5 @@ ax.plot(averager.first_avg_history, label='Weighted Avg')
 ax.legend()
 st.pyplot(fig)
 
-time.sleep(0.1)
+# time.sleep(0.1)
 st.rerun()
