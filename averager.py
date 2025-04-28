@@ -78,26 +78,26 @@ class Averager:
                     else:
                         if counter.counter_1>=90:
                             print(f"when greater than 90 {self.first_avg}")
-                            current_average = (self.first_avg + (sum(self.value))) / 16
+                            current_average = (self.first_avg + (sum(self.value))) / 15
                             if(current_average<self.previous_average):
-                                self.first_avg = self.first_avg + 1
+                                self.first_avg = self.previous_average + 1
                             else:
-                                self.first_avg = (self.first_avg + (sum(self.value))) / 16    
+                                self.first_avg = (self.previous_average + (sum(self.value))) / 15
                             
                             
                         elif counter.counter_1 >=30:
                             print(f"when greater than 30 {self.first_avg}")
-                            current_average = (self.first_avg + (sum(self.value))) / 16
+                            current_average = (self.first_avg + (sum(self.value))) / 15
                             if(current_average>=self.previous_average):
-                                self.first_avg = self.first_avg - 1
+                                self.first_avg = self.previous_average - 1
                             else:
-                                self.first_avg = (self.first_avg + (sum(self.value))) / 16
+                                self.first_avg = (self.previous_average + (sum(self.value))) / 15
                                 
                             
                             
                             
                         else:
-                            self.first_avg = (self.first_avg + (sum(self.value))) / 16
+                            self.first_avg = (self.previous_average + (sum(self.value))) / 15
                     
                     print("Total_seconds_Passed " + str(counter.seconds_1))
                     print(f"For call {self.call_count} : Initial Average is {self.initial_average}")
