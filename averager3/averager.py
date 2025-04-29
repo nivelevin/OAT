@@ -44,7 +44,7 @@ class Averager:
             self.call_count += 1
             self.raw_values.append(value)
             self.timestamps.append(datetime.now().strftime("%H:%M:%S"))
-            print(f"Processing value: {value}")
+            # print(f"Processing value: {value}")
 
             if not self.process_enabled:
                 last_avg=self.avg_history[-1] if self.avg_history else None
@@ -55,12 +55,12 @@ class Averager:
 
 
             if self.call_count <= 4:
-                print(f"Ignoring {self.call_count} : {value} ")
+                # print(f"Ignoring {self.call_count} : {value} ")
                 pass
 
                 # return None
             else:
-                print(f"For call {self.call_count} : Input Value is {value}")
+                # print(f"For call {self.call_count} : Input Value is {value}")
                 self.value.append(value)
                 if len(self.value) == 15:
                     if not self.initial_avg_calculated:
@@ -68,8 +68,8 @@ class Averager:
                         self.initial_avg_calculated = True
                         self.previous_average = self.initial_average
                         
-                        print("Total_seconds_Passed " + str(counter.seconds_1))
-                        print(f"For call {self.call_count} : Initial Average is {self.initial_average}")
+                        # print("Total_seconds_Passed " + str(counter.seconds_1))
+                        # print(f"For call {self.call_count} : Initial Average is {self.initial_average}")
                         self.avg_history.append(self.initial_average)
                         self.first_avg_history.append(self.first_avg)
                         self.value = []
@@ -81,7 +81,7 @@ class Averager:
                         # self.first_avg = avg
                     else:
                         if counter.counter_1>=90:
-                            print(f"when counter greater than 90")
+                            # print(f"when counter greater than 90")
                             # current_average = (self.previous_average + (sum(self.value))) / 16
                             current_average = (sum(self.value)) / 15
                             if(current_average<self.previous_average):
@@ -91,7 +91,7 @@ class Averager:
                             
                             
                         elif counter.counter_1 >=30:
-                            print(f"when counter greater than 30")
+                            # print(f"when counter greater than 30")
                             # current_average = (self.previous_average + (sum(self.value))) / 16
                             current_average = (sum(self.value)) / 15
                             if(current_average>=self.previous_average):
@@ -103,7 +103,7 @@ class Averager:
                             
                             
                         else:
-                            print(f"when vehicle speed lesser than 30")
+                            # print(f"when vehicle speed lesser than 30")
                             current_average = (sum(self.value)) / 15
                             if(current_average>=self.previous_average):
                                 self.first_avg = self.previous_average - 1
@@ -115,9 +115,9 @@ class Averager:
                             
                             # self.first_avg = (self.previous_average + (sum(self.value))) / 16
                     
-                        print("Total_seconds_Passed " + str(counter.seconds_1))
-                        print(f"For call {self.call_count} : Initial Average is {self.initial_average}")
-                        print(f"For call {self.call_count} : Regular Average is {self.first_avg}")
+                        # print("Total_seconds_Passed " + str(counter.seconds_1))
+                        # print(f"For call {self.call_count} : Initial Average is {self.initial_average}")
+                        # print(f"For call {self.call_count} : Regular Average is {self.first_avg}")
                         self.avg_history.append(self.initial_average)
                         self.first_avg_history.append(self.first_avg)
                         self.value = []
@@ -137,6 +137,12 @@ class Averager:
             self.running = False
             self.velocity=[]
             self.process_enabled=True
+            self.initial_average = 0
+            self.previous_average = 0
+            self.initial_avg_calculated = False
+            self.timestamps = []
+            # counter.stop_timer1()
+            counter.reset_timer1()
 
 def stimulate_velocity(averager):
     while True:
@@ -155,7 +161,7 @@ def stimulate_velocity(averager):
                     "random": random
                 }
                 vel_value=eval(averager.vel_expr,{"__builtins__":{}},local_vars)
-                print(vel_value)
+                # print(vel_value)
                 if vel_value >=30:
                     counter.start_timer1()
                 if vel_value < 30:
@@ -220,6 +226,8 @@ def timer():
 def stop(averager):
     with averager.lock:
         averager.running = False
+        counter.stop_timer1()
+        counter.reset_timer1()
 
 
 
