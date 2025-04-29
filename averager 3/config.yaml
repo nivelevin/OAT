@@ -1,0 +1,27 @@
+t_init: 0.0
+vel_init: 0.0
+t_step: 0.01
+vel_step: 0.1
+sleep_time: 0.1
+
+temp_slider:
+  min: 20
+  max: 70
+  default: 25
+
+temp_random_slider:
+  min_limit: -25
+  max_limit: 100
+  default_min: -25
+  default_max: 30
+
+vel_slider:
+  min: 0
+  max: 200
+  default: 20
+
+thresholds:
+  temp_limit: 60
+  combined_limit:
+    temp: 55
+    vel: 120
